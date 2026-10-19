@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emre ❤️ Ecrin - Sonsuz Aşk & Tanışma Hikayemiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        love: {
+                            50: '#fff0f3',
+                            100: '#ffe3e8',
+                            200: '#fcc2d0',
+                            300: '#f797ad',
+                            400: '#f06595',
+                            500: '#e64980',
+                            600: '#d6336c',
+                            700: '#c2255c',
+                        },
+                        night: {
+                            900: '#0b132b',
+                            800: '#1c2541',
+                            700: '#3a506b',
+                            600: '#48cae4',
+                            500: '#90e0ef',
+                            100: '#e0f7fa',
+                        }
+                    },
+                    fontFamily: {
+                        romantic: ['"Dancing Script"', 'cursive'],
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            user-select: none;
+            transition: background 0.8s ease;
+        }
+
+        /* Pink Theme BG */
+        body.theme-pink {
+            background: linear-gradient(135deg, #ffeef2 0%, #ffd6e0 50%, #fecdd3 100%);
+        }
+
+        /* Night Sky / Blue Theme BG */
+        body.theme-night {
+            background: linear-gradient(180deg, #0b132b 0%, #1c2541 50%, #2a3d66 100%);
+            color: #f1f5f9;
+        }
+
+        #bg-canvas, #stars-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 0 12px 35px rgba(230, 73, 128, 0.15);
+        }
+
+        .theme-night .glass-card {
+            background: rgba(28, 37, 65, 0.75);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(72, 202, 228, 0.3);
+            box-shadow: 0 12px 35px rgba(11, 19, 43, 0.5);
+            color: #f8fafc;
+        }
+
+        .pulse-heart {
+            animation: heartBeat 1.3s infinite ease-in-out;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.18); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.18); }
+            70% { transform: scale(1); }
+        }
+
+        .floating {
+            animation: floating 3.5s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .sparkle-glow {
+            text-shadow: 0 0 10px rgba(244, 63, 94, 0.6), 0 0 20px rgba(251, 113, 133, 0.4);
+        }
+
+        .night-glow {
+            text-shadow: 0 0 12px rgba(72, 202, 228, 0.8), 0 0 25px rgba(144, 224, 239, 0.5);
+        }
+
+        /* Continuous Kiss Animation */
+        .flying-kiss {
+            position: absolute;
+            animation: kissFly 2.2s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes kissFly {
+            0% { transform: translate(0, 0) scale(0.6) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translate(160px, -25px) scale(1.3) rotate(20deg); opacity: 0; }
+        }
+
+        @media (min-width: 768px) {
+            @keyframes kissFly {
+                0% { transform: translate(0, 0) scale(0.6) rotate(0deg); opacity: 0; }
+                20% { opacity: 1; }
+                80% { opacity: 1; }
+                100% { transform: translate(240px, -35px) scale(1.4) rotate(20deg); opacity: 0; }
+            }
+        }
+
+        /* Moon Glow */
+        .moon {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #fffde7, #fff59d);
+            border-radius: 50%;
+            box-shadow: 0 0 30px #fff59d, 0 0 60px rgba(255, 245, 157, 0.4);
+        }
+
+        /* Instagram Chat Bubbles */
+        .chat-bubble-emre {
+            background: linear-gradient(135deg, #3772ff, #7000ff);
+            color: white;
+            border-radius: 20px 20px 4px 20px;
+        }
+
+        .chat-bubble-ecrin {
+            background: #e9ecef;
+            color: #212529;
+            border-radius: 20px 20px 20px 4px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe3e8;
+        }
+        .theme-night ::-webkit-scrollbar-track {
+            background: #1c2541;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f06595;
+            border-radius: 4px;
+        }
+        .theme-night ::-webkit-scrollbar-thumb {
+            background: #48cae4;
+        }
+    </style>
+</head>
+<body class="theme-pink relative text-gray-800">
+
+    <!-- Interactive Background Canvases -->
+    <canvas id="bg-canvas"></canvas>
+    <canvas id="stars-canvas" class="hidden"></canvas>
+
+    <!-- Global Floating Music Control -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-3">
+        <button id="musicToggle" onclick="toggleMusic()" class="glass-card p-3 rounded-full text-love-600 hover:bg-white transition hover:scale-110 shadow-lg flex items-center justify-center w-12 h-12 border-2 border-pink-300" title="Aşk Melodisini Aç/Kapat">
+            <i id="musicIcon" class="fas fa-music text-xl"></i>
+        </button>
+    </div>
+
+    <!-- LOGIN SCREEN MODAL -->
+    <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-love-700/40 backdrop-blur-md transition-opacity duration-500">
+        <div class="glass-card w-full max-w-md p-8 rounded-3xl text-center relative border-4 border-pink-200 floating">
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-gradient-to-tr from-love-400 to-love-600 rounded-full flex items-center justify-center border-4 border-white shadow-xl">
+                <i class="fas fa-heart text-4xl text-white pulse-heart"></i>
+            </div>
+
+            <!-- Customized Greeting Heading -->
+            <h2 class="text-4xl font-bold font-romantic text-love-600 mt-8 mb-1">Buyur Ecrinim ❤️</h2>
+            <p class="text-xs text-pink-700 mb-5 font-medium">Sana Özel Hazırlanan Aşk Kapısına Hoş Geldin...</p>
+
+            <!-- Hint Box -->
+            <div class="bg-pink-100/80 border border-pink-300 rounded-2xl p-3 mb-6 text-xs text-love-600 flex items-center justify-center gap-2">
+                <i class="fas fa-sparkles text-yellow-500 text-sm"></i>
+                <span>İpucu: Giriş yapmak için kalbe (<b>❤️</b>) tıkla!</span>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-left text-xs text-love-600 font-semibold mb-1 ml-2">Kullanıcı Adı</label>
+                    <div class="relative">
+                        <input type="text" id="username" placeholder="❤️" class="w-full px-4 py-3 rounded-2xl bg-white/90 border border-pink-300 focus:outline-none focus:ring-2 focus:ring-love-400 text-center text-lg text-love-600 font-bold shadow-inner">
+                        <button type="button" onclick="insertHeart('username')" class="absolute right-3 top-1/2 -translate-y-1/2 text-love-500 hover:scale-125 transition text-xl">❤️</button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-left text-xs text-love-600 font-semibold mb-1 ml-2">Şifre</label>
+                    <div class="relative">
+                        <input type="password" id="password" placeholder="❤️" class="w-full px-4 py-3 rounded-2xl bg-white/90 border border-pink-300 focus:outline-none focus:ring-2 focus:ring-love-400 text-center text-lg text-love-600 font-bold shadow-inner">
+                        <button type="button" onclick="insertHeart('password')" class="absolute right-3 top-1/2 -translate-y-1/2 text-love-500 hover:scale-125 transition text-xl">❤️</button>
+                    </div>
+                </div>
+
+                <div id="loginError" class="hidden text-xs text-red-500 font-bold bg-red-100 p-2 rounded-xl">
+                    Yanlış! Kalbini kontrol edip tekrar dene ❤️
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-love-400 to-love-600 hover:from-love-500 hover:to-love-700 text-white font-bold rounded-2xl shadow-lg transform transition active:scale-95 flex items-center justify-center gap-2">
+                    <span>Aşk Kapısını Aç</span>
+                    <i class="fas fa-key text-sm"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MAIN HUB CONTAINER -->
+    <div id="mainContent" class="hidden relative z-10 max-w-5xl mx-auto px-4 py-6 space-y-8">
+
+        <!-- TOP NAVIGATION BAR / PAGE SWITCHER -->
+        <nav class="flex items-center justify-center gap-3 p-2 bg-white/60 backdrop-blur-md rounded-2xl border border-pink-200 max-w-md mx-auto shadow-md">
+            <button id="tab1Btn" onclick="switchPage('tab1')" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs md:text-sm transition flex items-center justify-center gap-2 bg-gradient-to-r from-love-400 to-love-600 text-white shadow-md">
+                <i class="fas fa-heart"></i>
+                <span>Aşk Dünyamız</span>
+            </button>
+            <button id="tab2Btn" onclick="switchPage('tab2')" class="flex-1 py-2.5 px-4 rounded-xl font-bold text-xs md:text-sm transition flex items-center justify-center gap-2 text-gray-600 hover:bg-pink-100/50">
+                <i class="fas fa-star text-yellow-500"></i>
+                <span>Nasıl Tanıştık? ✨</span>
+            </button>
+        </nav>
+
+        <!-- ================= PAGE 1: AŞK DÜNYAMIZ (PEMBE TEMA) ================= -->
+        <div id="page1" class="space-y-10">
+
+            <!-- HEADER -->
+            <header class="text-center space-y-3 pt-2">
+                <div class="inline-flex items-center gap-2 bg-pink-200/80 px-4 py-1.5 rounded-full text-love-600 font-semibold text-xs border border-pink-300 shadow-sm backdrop-blur-md">
+                    <i class="fas fa-map-pin text-red-500"></i>
+                    <span>Trakya ↔ Eskişehir Hatlarında Sonsuz Sevgi</span>
+                    <i class="fas fa-heart text-red-500"></i>
+                </div>
+
+                <h1 class="text-5xl md:text-7xl font-bold font-romantic text-love-600 sparkle-glow drop-shadow-md">
+                    Emre ❤️ Ecrin
+                </h1>
+
+                <p class="text-gray-700 text-sm md:text-base max-w-2xl mx-auto font-light leading-relaxed">
+                    "Trakya'nın rüzgarından Eskişehir'in sokaklarına kadar her yerde senin adın fısıldanıyor sevgilim..."
+                </p>
+            </header>
+
+            <!-- ANIMATED CHARACTERS SECTION (Emre BLUE, Ecrin PINK) -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 border-2 border-pink-300 relative overflow-hidden shadow-xl">
+                <div class="text-center mb-6">
+                    <span class="text-xs font-bold text-love-500 uppercase tracking-widest bg-pink-100 px-3 py-1 rounded-full">
+                        Sanal Öpücük Hattı 💋
+                    </span>
+                    <h2 class="text-2xl font-bold font-romantic text-love-600 mt-2">Emre Eskişehir'e Durmadan Öpücük Yolluyor!</h2>
+                </div>
+
+                <!-- Animated Characters Stage -->
+                <div class="relative bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100 rounded-2xl p-6 border border-pink-200 flex items-center justify-between max-w-2xl mx-auto min-h-[160px] shadow-inner">
+                    
+                    <!-- Emre (Trakya) - BLUE Avatar -->
+                    <div class="flex flex-col items-center gap-1 relative z-10">
+                        <div class="relative w-20 h-20 md:w-24 md:h-24 bg-blue-200 rounded-full border-4 border-white shadow-md flex items-center justify-center overflow-hidden">
+                            <svg class="w-16 h-16" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="#90e0ef"/>
+                                <path d="M 20,45 Q 50,10 80,45 Q 70,25 50,22 Q 30,25 20,45 Z" fill="#1c2541"/>
+                                <circle cx="38" cy="48" r="4" fill="#333"/>
+                                <circle cx="62" cy="48" r="4" fill="#333"/>
+                                <circle cx="32" cy="55" r="5" fill="#48cae4" opacity="0.6"/>
+                                <circle cx="68" cy="55" r="5" fill="#48cae4" opacity="0.6"/>
+                                <circle cx="50" cy="62" r="5" fill="#0077b6"/>
+                            </svg>
+                        </div>
+                        <span class="font-bold text-xs text-blue-700 bg-white px-2.5 py-0.5 rounded-full border border-blue-300 shadow-sm">
+                            Emre 👦 (Trakya)
+                        </span>
+                    </div>
+
+                    <!-- Kiss Flying Animations -->
+                    <div class="absolute left-[30%] md:left-[28%] top-1/2 -translate-y-1/2 pointer-events-none w-full">
+                        <div class="flying-kiss text-2xl text-red-500" style="animation-delay: 0s;">💋</div>
+                        <div class="flying-kiss text-xl text-pink-500" style="animation-delay: 0.7s;">❤️</div>
+                        <div class="flying-kiss text-2xl text-red-600" style="animation-delay: 1.4s;">😘</div>
+                    </div>
+
+                    <!-- Ecrin (Eskişehir) - PINK Avatar -->
+                    <div class="flex flex-col items-center gap-1 relative z-10">
+                        <div class="relative w-20 h-20 md:w-24 md:h-24 bg-pink-200 rounded-full border-4 border-white shadow-md flex items-center justify-center overflow-hidden">
+                            <svg class="w-16 h-16" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="#ffe3e8"/>
+                                <path d="M 15,50 Q 15,15 50,15 Q 85,15 85,50 Q 85,85 75,90 Q 50,75 25,90 Z" fill="#6a3b23"/>
+                                <path d="M 35,22 Q 50,15 65,22 Q 50,28 35,22 Z" fill="#e64980"/>
+                                <path d="M 32,48 Q 38,42 44,48" stroke="#333" stroke-width="3" fill="none"/>
+                                <path d="M 56,48 Q 62,42 68,48" stroke="#333" stroke-width="3" fill="none"/>
+                                <circle cx="30" cy="56" r="6" fill="#ff6b8b" opacity="0.7"/>
+                                <circle cx="70" cy="56" r="6" fill="#ff6b8b" opacity="0.7"/>
+                                <path d="M 42,62 Q 50,70 58,62" stroke="#d6336c" stroke-width="3" fill="none"/>
+                            </svg>
+                        </div>
+                        <span class="font-bold text-xs text-love-600 bg-white px-2.5 py-0.5 rounded-full border border-pink-300 shadow-sm">
+                            Ecrin 👧 (Eskişehir)
+                        </span>
+                    </div>
+
+                </div>
+
+                <p class="text-center text-xs text-pink-700 italic mt-4">
+                    "Uzaklık sadece haritada sevgilim... Kalbimdeki her öpücük doğrudan Eskişehir'e uçuyor!"
+                </p>
+            </section>
+
+            <!-- AŞK SAYACI (14 MART 2024'TEN BERİ) -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 text-center space-y-6 relative overflow-hidden border-2 border-pink-200">
+                <div class="space-y-1">
+                    <span class="inline-block px-3 py-1 bg-love-100 text-love-600 text-xs font-bold rounded-full">
+                        <i class="fas fa-calendar-alt mr-1"></i> Sevgili Olma Tarihimiz: 14 Mart 2024
+                    </span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 font-romantic">Bizim Aşk Zamanımız</h2>
+                    <p class="text-xs text-gray-500">14 Mart 2024 tarihinden beri geçen her saniye aşkımız büyüyor</p>
+                </div>
+
+                <!-- Counters Grid -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+                    <div class="bg-gradient-to-b from-white to-pink-50 p-4 rounded-2xl border border-pink-200 shadow-sm transform hover:scale-105 transition">
+                        <span id="mainDays" class="block text-3xl md:text-4xl font-extrabold text-love-600 font-romantic">0</span>
+                        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Gün</span>
+                    </div>
+                    <div class="bg-gradient-to-b from-white to-pink-50 p-4 rounded-2xl border border-pink-200 shadow-sm transform hover:scale-105 transition">
+                        <span id="mainHours" class="block text-3xl md:text-4xl font-extrabold text-love-600 font-romantic">00</span>
+                        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Saat</span>
+                    </div>
+                    <div class="bg-gradient-to-b from-white to-pink-50 p-4 rounded-2xl border border-pink-200 shadow-sm transform hover:scale-105 transition">
+                        <span id="mainMinutes" class="block text-3xl md:text-4xl font-extrabold text-love-600 font-romantic">00</span>
+                        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Dakika</span>
+                    </div>
+                    <div class="bg-gradient-to-b from-white to-pink-50 p-4 rounded-2xl border border-pink-200 shadow-sm transform hover:scale-105 transition">
+                        <span id="mainSeconds" class="block text-3xl md:text-4xl font-extrabold text-love-600 font-romantic">00</span>
+                        <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Saniye</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AUTOMATIC LOVE LETTER GENERATOR SECTION -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 space-y-6 border-2 border-pink-300 relative shadow-lg">
+                <div class="text-center space-y-2">
+                    <span class="text-xs font-bold text-love-500 tracking-widest uppercase bg-pink-100 px-3 py-1 rounded-full">
+                        <i class="fas fa-magic mr-1"></i> Otomatik Aşk Mektubu Üreteci
+                    </span>
+                    <h2 class="text-3xl font-bold font-romantic text-love-600">Emre'den Ecrin'e Özel Aşk Mektupları 💌</h2>
+                    <p class="text-xs text-gray-600 max-w-lg mx-auto">
+                        Trakya'dan Eskişehir'deki prensese yazılmış, her tıklamada yeni duygularla dolu romantik mektuplar!
+                    </p>
+                </div>
+
+                <!-- Letter Display Paper -->
+                <div class="bg-amber-50/70 p-6 md:p-8 rounded-2xl border-2 border-pink-200 shadow-inner max-w-2xl mx-auto space-y-4 relative">
+                    <div class="flex items-center justify-between border-b border-pink-200/80 pb-3">
+                        <span class="font-romantic text-xl font-bold text-love-600">Birtanecik Ecrin'ime...</span>
+                        <span id="letterDate" class="text-[11px] text-gray-500 font-mono">14 Mart 2024'ten Beri</span>
+                    </div>
+
+                    <p id="generatedLetter" class="text-sm md:text-base text-gray-700 font-light leading-relaxed italic transition-opacity duration-300">
+                        "Gözlerimi kapattığım an Trakya'nın tüm sessizliği yerini senin sesine bırakıyor sevgilim. Eskişehir belki kilometrelerce uzakta ama sen kalbimin en derin yerindesin. Seni her gün ilk günkü heyecanımla, sonsuz bir aşkla seviyorum..."
+                    </p>
+
+                    <div class="text-right pt-2 border-t border-pink-200/80">
+                        <span class="font-romantic text-lg font-bold text-love-600">Seni Çok Seven Emre'n ❤️</span>
+                    </div>
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="generateNewLetter()" class="px-8 py-3.5 bg-gradient-to-r from-love-400 to-love-600 hover:from-love-500 hover:to-love-700 text-white font-bold rounded-2xl shadow-lg transition transform hover:scale-105 active:scale-95 inline-flex items-center gap-2">
+                        <i class="fas fa-feather-alt text-lg"></i>
+                        <span>Yeni Bir Aşk Mektubu Yaz ✨</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- APOLOGY & BAD DAYS CORNER -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 space-y-6 border-2 border-pink-300 bg-gradient-to-br from-white/90 via-pink-50/80 to-white/90">
+                <div class="text-center space-y-2">
+                    <span class="text-xs font-bold text-purple-600 tracking-widest uppercase bg-purple-100 px-3 py-1 rounded-full">
+                        <i class="fas fa-hand-holding-heart mr-1"></i> Kalbini Onarma Köşesi
+                    </span>
+                    <h2 class="text-3xl font-bold font-romantic text-love-600">Beni Affet Prensesim 🥺❤️</h2>
+                    <p class="text-xs text-gray-600 max-w-lg mx-auto">
+                        Tartıştığımız veya birbirimizi üzdüğümüz tüm kötü günler için Emre'nin samimi özrü...
+                    </p>
+                </div>
+
+                <div class="bg-white/90 p-6 rounded-2xl border-2 border-pink-200 max-w-2xl mx-auto space-y-4 shadow-md">
+                    <div class="flex items-center gap-3 border-b border-pink-100 pb-3">
+                        <span class="text-3xl">🩹</span>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-sm">"Seni Asla Kırmak İstemem Bitanem"</h3>
+                            <p class="text-[11px] text-gray-500">Tüm tartışmaların üstünü aşkımızla örtelim</p>
+                        </div>
+                    </div>
+
+                    <div class="text-xs md:text-sm text-gray-700 leading-relaxed space-y-2 font-light">
+                        <p>
+                            "Bazen mesafelerin verdiği özlemle, bazen de düşüncesizlikle seni üzdüğüm, kırdığım anlar olduysa çok ama çok özür dilerim prensesim.
+                        </p>
+                        <p>
+                            Senin o güzel yüzünün asılması, gözlerinden tek bir damla yaş gelmesi benim kalbimi bin parçaya böler. Lütfen beni affet sevgilim..."
+                        </p>
+                    </div>
+
+                    <div class="pt-3 flex justify-center">
+                        <button onclick="forgiveEmre()" class="px-6 py-2.5 bg-gradient-to-r from-pink-400 to-love-500 text-white font-bold rounded-xl shadow-md transition transform hover:scale-105 active:scale-95 text-xs flex items-center gap-2">
+                            <i class="fas fa-heart text-white"></i>
+                            <span>Emre'yi Affettim & Sarıldım 🤗</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ÖZEL DOĞUM GÜNLERİ SAYAÇLARI -->
+            <section class="space-y-6">
+                <div class="text-center">
+                    <span class="text-xs font-bold text-love-500 tracking-widest uppercase bg-pink-100 px-3 py-1 rounded-full">
+                        <i class="fas fa-birthday-cake mr-1"></i> Özel Günlerimiz
+                    </span>
+                    <h2 class="text-3xl font-bold font-romantic text-love-600 mt-2">Doğum Günleri Sayacı 🎂</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Ecrin's Birthday -->
+                    <div class="glass-card p-6 rounded-3xl border-2 border-pink-200 relative overflow-hidden flex flex-col justify-between hover:shadow-xl transition">
+                        <div class="flex items-center justify-between border-b border-pink-200 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-pink-100 text-love-500 flex items-center justify-center text-2xl font-bold">
+                                    👑
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">Ecrin'in Doğum Günü</h3>
+                                    <p class="text-xs text-gray-500">15 Ocak 2012 (Eskişehir)</p>
+                                </div>
+                            </div>
+                            <span id="ecrinAge" class="text-xs font-bold bg-love-100 text-love-600 px-3 py-1 rounded-full">Hesaplanıyor...</span>
+                        </div>
+
+                        <div class="my-6 text-center">
+                            <p class="text-xs text-gray-500 mb-2">Sonraki Doğum Günün İçin Kalan Zaman:</p>
+                            <div id="ecrinBdayCountdown" class="text-2xl font-bold font-romantic text-love-600 bg-white/70 py-3 px-4 rounded-2xl border border-pink-200">
+                                Yükleniyor...
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Emre's Birthday -->
+                    <div class="glass-card p-6 rounded-3xl border-2 border-pink-200 relative overflow-hidden flex flex-col justify-between hover:shadow-xl transition">
+                        <div class="flex items-center justify-between border-b border-pink-200 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-500 flex items-center justify-center text-2xl font-bold">
+                                    🧸
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-gray-800">Emre'nin Doğum Günü</h3>
+                                    <p class="text-xs text-gray-500">21 Kasım 2007 (Trakya)</p>
+                                </div>
+                            </div>
+                            <span id="emreAge" class="text-xs font-bold bg-blue-100 text-blue-600 px-3 py-1 rounded-full">Hesaplanıyor...</span>
+                        </div>
+
+                        <div class="my-6 text-center">
+                            <p class="text-xs text-gray-500 mb-2">Sonraki Doğum Günü İçin Kalan Zaman:</p>
+                            <div id="emreBdayCountdown" class="text-2xl font-bold font-romantic text-love-600 bg-white/70 py-3 px-4 rounded-2xl border border-pink-200">
+                                Yükleniyor...
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- MİNİ OYUNLAR & ÇARKI FELEK -->
+            <section class="space-y-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold font-romantic text-love-600">Aşk Oyunları & Eğlence 🎮</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Game 1: Kalp Yakalama Oyunu -->
+                    <div class="glass-card p-6 rounded-3xl flex flex-col justify-between space-y-4 border-2 border-pink-200">
+                        <div class="flex items-center justify-between border-b border-pink-200 pb-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-gamepad text-love-500 text-2xl"></i>
+                                <h3 class="font-bold text-gray-800">Eskişehir'e Düşen Kalpler</h3>
+                            </div>
+                            <span class="bg-love-100 text-love-600 text-xs font-bold px-3 py-1 rounded-full">Skor: <span id="gameScore">0</span></span>
+                        </div>
+                        <p class="text-xs text-gray-600">Trakya'dan düşen kalplere tıklayarak Emre'nin sevgisini topla!</p>
+                        
+                        <div id="gameArea" class="relative w-full h-56 bg-pink-50/80 rounded-2xl border-2 border-dashed border-pink-300 overflow-hidden flex items-center justify-center">
+                            <button id="startGameBtn" onclick="startGame()" class="px-6 py-2.5 bg-love-500 hover:bg-love-600 text-white font-bold rounded-xl shadow-md transition">Oyunu Başlat 🚀</button>
+                        </div>
+                    </div>
+
+                    <!-- Game 2: Aşk Çarkıfeleği -->
+                    <div class="glass-card p-6 rounded-3xl flex flex-col items-center justify-between space-y-4 text-center border-2 border-pink-200">
+                        <div class="w-full flex items-center justify-between border-b border-pink-200 pb-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-dharmachakra text-love-500 text-2xl"></i>
+                                <h3 class="font-bold text-gray-800">Sürpriz Aşk Çarkı</h3>
+                            </div>
+                            <span class="text-xs text-love-500 font-semibold">%100 Sürpriz Garantili!</span>
+                        </div>
+
+                        <!-- Wheel Graphic -->
+                        <div class="relative my-2">
+                            <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-20 text-love-600 text-2xl filter drop-shadow">
+                                <i class="fas fa-caret-down"></i>
+                            </div>
+                            <canvas id="wheelCanvas" width="220" height="220" class="rounded-full border-4 border-pink-300 shadow-lg"></canvas>
+                        </div>
+
+                        <button id="spinBtn" onclick="spinWheel()" class="w-full py-3 bg-gradient-to-r from-love-400 to-pink-500 text-white font-bold rounded-xl shadow hover:opacity-90 transition">
+                            Çarkı Çevir & Kupon Kazan!
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
+        <!-- ================= PAGE 2: NASIL TANIŞTIK? ✨ (LIGHT BLUE / NIGHT THEME) ================= -->
+        <div id="page2" class="hidden space-y-10">
+
+            <!-- PAGE 2 HEADER WITH MOON -->
+            <header class="text-center space-y-4 pt-4 relative">
+                <div class="flex justify-center mb-2">
+                    <div class="moon floating"></div>
+                </div>
+
+                <div class="inline-flex items-center gap-2 bg-night-800/80 px-4 py-1.5 rounded-full text-night-600 font-semibold text-xs border border-night-600 shadow-sm backdrop-blur-md">
+                    <i class="fas fa-star text-yellow-400 animate-pulse"></i>
+                    <span>Kaderimizin Yazıldığı O An</span>
+                    <i class="fas fa-star text-yellow-400 animate-pulse"></i>
+                </div>
+
+                <h1 class="text-4xl md:text-6xl font-bold font-romantic text-night-500 night-glow">
+                    Her Şey Bir Instagram Story'si İle Başladı... ✨
+                </h1>
+
+                <p class="text-night-100 text-sm md:text-base max-w-2xl mx-auto font-light leading-relaxed">
+                    Gece gökyüzündeki yıldızlar kadar sonsuz bir hikayenin ilk adımı... Trakya'dan Eskişehir'e uzanan en tatlı mesaj!
+                </p>
+            </header>
+
+            <!-- INSTAGRAM DM INTERACTIVE STORY MOCKUP -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 space-y-6 border-2 border-night-600 max-w-2xl mx-auto relative overflow-hidden shadow-2xl">
+                
+                <div class="text-center pb-2 border-b border-night-700/80 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fab fa-instagram text-2xl text-pink-400"></i>
+                        <span class="font-bold text-sm text-night-500">Instagram DM • 9 Mart</span>
+                    </div>
+                    <span class="text-xs bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full font-semibold border border-pink-500/30">Tanışma Günümüz (9 Mart)</span>
+                </div>
+
+                <!-- Instagram Story Container Mockup -->
+                <div class="bg-night-900/90 rounded-2xl p-4 border border-night-700 space-y-4 shadow-inner">
+                    
+                    <!-- Ecrin's Story Header Mock -->
+                    <div class="flex items-center gap-3 bg-night-800/60 p-3 rounded-xl border border-night-700">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-0.5">
+                            <div class="w-full h-full bg-night-900 rounded-full flex items-center justify-center font-bold text-xs text-pink-300">
+                                ECR
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-white">ecrin_</p>
+                            <p class="text-[10px] text-gray-400">Instagram Hikayesi • MLBB (Mobile Legends) 📍</p>
+                        </div>
+                    </div>
+
+                    <!-- Story Image Mockup Display (MLBB) -->
+                    <div class="relative w-full h-48 bg-gradient-to-tr from-indigo-900 via-purple-900 to-slate-900 rounded-xl flex items-center justify-center overflow-hidden border border-pink-500/30">
+                        <div class="text-center p-4">
+                            <i class="fas fa-shield-halved text-4xl text-yellow-400 mb-2 animate-bounce"></i>
+                            <p class="text-xs text-pink-200 font-semibold">Ecrin'in Paylaştığı MLBB Hikayesi 🎮</p>
+                            <p class="text-[10px] text-gray-300 italic">"Rank & Maç Skoru Paylaşımı..."</p>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages Simulation -->
+                    <div class="space-y-3 pt-2">
+                        
+                        <!-- Emre's First Message -->
+                        <div class="flex flex-col items-end space-y-1">
+                            <div class="chat-bubble-emre px-4 py-2.5 text-xs font-semibold shadow-md max-w-[80%]">
+                                Ligin ne? 🎮⚔️
+                            </div>
+                            <span class="text-[9px] text-gray-400 mr-2">Emre (Trakya) • 9 Mart</span>
+                        </div>
+
+                        <!-- Ecrin's Reply -->
+                        <div class="flex flex-col items-start space-y-1">
+                            <div class="chat-bubble-ecrin px-4 py-2.5 text-xs font-semibold shadow-md max-w-[80%]">
+                                Büyük usta ama epik olucam az kaldı
+                            </div>
+                            <span class="text-[9px] text-gray-400 ml-2">Ecrin (Eskişehir)</span>
+                        </div>
+
+                        <!-- Timeline Note -->
+                        <div class="text-center py-2 bg-pink-500/10 rounded-xl border border-pink-500/20 text-pink-300 text-xs font-medium space-y-1">
+                            <p>✨ <b>9 Mart:</b> Ilk mesajlaşma ve tanışma günü!</p>
+                            <p>❤️ <b>14 Mart 2024:</b> Resmi olarak sevgili olduğumuz tarih!</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="text-center pt-2">
+                    <button onclick="triggerStarShower()" class="px-8 py-3.5 bg-gradient-to-r from-night-600 to-purple-600 hover:from-night-500 hover:to-purple-500 text-white font-bold rounded-2xl shadow-lg transition transform hover:scale-105 active:scale-95 inline-flex items-center gap-2 border border-night-500">
+                        <i class="fas fa-magic text-yellow-400"></i>
+                        <span>O Anı Tekrar Yaşa & Yıldız Yağdır! ✨</span>
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- OUR SONG SECTION (REFLECTIONS - THE NEIGHBOURHOOD) -->
+            <section class="glass-card rounded-3xl p-6 md:p-8 space-y-6 border-2 border-night-600 max-w-2xl mx-auto text-center relative overflow-hidden">
+                <div class="space-y-2">
+                    <span class="text-xs font-bold text-pink-400 tracking-widest uppercase bg-pink-500/20 px-3 py-1 rounded-full border border-pink-500/30">
+                        <i class="fas fa-music mr-1"></i> Bizim Şarkımız
+                    </span>
+                    <h2 class="text-3xl font-bold font-romantic text-night-500 night-glow">The Neighbourhood - Reflections 🎶</h2>
+                </div>
+
+                <div class="bg-night-900/80 p-6 rounded-2xl border border-night-700 space-y-4 shadow-inner max-w-md mx-auto">
+                    <div class="flex items-center justify-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center text-white text-2xl shadow-lg pulse-heart">
+                            <i class="fas fa-compact-disc animate-spin"></i>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="font-bold text-white text-sm">Reflections</h4>
+                            <p class="text-xs text-gray-400">The Neighbourhood</p>
+                            <p class="text-[10px] text-pink-400 font-semibold mt-1">Emre ❤️ Ecrin Özel Parçası</p>
+                        </div>
+                    </div>
+
+                    <!-- Audio Controls Display -->
+                    <div class="flex items-center justify-center gap-4 pt-2">
+                        <button onclick="toggleSong()" id="songPlayBtn" class="w-12 h-12 bg-gradient-to-r from-night-600 to-purple-600 text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition text-lg border border-pink-400">
+                            <i id="songPlayIcon" class="fas fa-play"></i>
+                        </button>
+                    </div>
+
+                    <!-- Embedded Audio Player (Custom Audio Source Placeholder / Synthesizer Tone Fallback) -->
+                    <audio id="reflectionsAudio" loop>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    </audio>
+
+                    <div id="songStatus" class="text-[11px] text-gray-400 italic">
+                        Şarkımızı dinlemek için oynat butonuna bas sevgilim...
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="text-center pt-8 border-t border-pink-200/60 theme-night:border-night-700 pb-12 space-y-2">
+            <p class="text-sm font-semibold text-love-600 theme-night:text-night-500 flex items-center justify-center gap-1">
+                Trakya'dan Eskişehir'e Sonsuz Sevgiyle Hazırlandı <i class="fas fa-heart text-red-500 pulse-heart"></i>
+            </p>
+            <p class="text-xs text-gray-500 theme-night:text-gray-400">Emre ❤️ Ecrin | 14 Mart 2024'ten Sonsuza Kadar...</p>
+        </footer>
+
+    </div>
+
+    <!-- MODAL POPUP FOR WHEEL PRIZE -->
+    <div id="wheelModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm hidden">
+        <div class="glass-card w-full max-w-xs p-6 rounded-3xl text-center relative floating border-2 border-pink-300">
+            <div class="text-5xl mb-3">🎁</div>
+            <h3 class="text-lg font-bold text-gray-800 mb-1">Kuponu Kazandın!</h3>
+            <p class="text-xs text-gray-500 mb-3">Eskişehir & Trakya Özel Aşk Ödülü:</p>
+            <div id="wheelPrizeText" class="bg-pink-100 text-love-600 font-bold p-3 rounded-2xl text-sm mb-4 border border-pink-200">
+                Aşk Kuponu 📱
+            </div>
+            <button onclick="closeModal('wheelModal')" class="w-full py-2.5 bg-love-500 text-white font-bold rounded-xl hover:bg-love-600 transition">
+                Kuponu Kaydet & Kullan ❤️
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* --- PAGE SWITCHING (TAB SYSTEM) --- */
+        let currentPage = 'tab1';
+
+        function switchPage(tab) {
+            currentPage = tab;
+            const p1 = document.getElementById('page1');
+            const p2 = document.getElementById('page2');
+            const t1Btn = document.getElementById('tab1Btn');
+            const t2Btn = document.getElementById('tab2Btn');
+            const bgPink = document.getElementById('bg-canvas');
+            const bgNight = document.getElementById('stars-canvas');
+
+            if (tab === 'tab1') {
+                p1.classList.remove('hidden');
+                p2.classList.add('hidden');
+                document.body.className = 'theme-pink relative text-gray-800';
+                
+                bgPink.classList.remove('hidden');
+                bgNight.classList.add('hidden');
+
+                t1Btn.className = 'flex-1 py-2.5 px-4 rounded-xl font-bold text-xs md:text-sm transition flex items-center justify-center gap-2 bg-gradient-to-r from-love-400 to-love-600 text-white shadow-md';
+                t2Btn.className = 'flex-1 py-2.5 px-4 rounded-xl font-bold text-xs md:text-sm transition flex items-center justify-center gap-2 text-gray-600 hover:bg-pink-100/50';
+            } else {
+                p1.classList.add('hidden');
+                p2.classList.remove('hidden');
+                document.body.className = 'theme-night relative text-white';
+                
+                bgPink.classList.add('hidden');
+                bgNight.classList.remove('hidden');
+
+                t1Btn.className = 'flex-1 py-2.5 px-4 rounded-xl font-bold text-xs md:text-sm transition flex items-center justify-center gap-2 text-gray-300 hover:bg-night-800/50';
+                t2Btn.className = 'flex-1 py-2.5 px-4 rounded-xl font-bold text-xs md:text-sm transition flex items-center justify-center gap-2 bg-gradient-to-r from-night-600 to-purple-600 text-white shadow-md';
+
+                triggerStarShower();
+            }
+        }
+
+        /* --- BACKGROUND 1: PINK HEARTS & STARS CANVAS --- */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            starsCanvas.width = window.innerWidth;
+            starsCanvas.height = window.innerHeight;
+        });
+
+        class HeartParticle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + Math.random() * 80;
+                this.size = Math.random() * 14 + 6;
+                this.speedY = Math.random() * 1.2 + 0.4;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.opacity = Math.random() * 0.6 + 0.3;
+                this.type = Math.random() > 0.35 ? 'heart' : 'star';
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.02;
+            }
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotSpeed;
+                if (this.y < -30) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.globalAlpha = this.opacity;
+                if (this.type === 'heart') {
+                    ctx.fillStyle = '#f06595';
+                    ctx.beginPath();
+                    let d = this.size;
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-d / 2, -d / 2, -d, d / 3, 0, d);
+                    ctx.bezierCurveTo(d, d / 3, d / 2, -d / 2, 0, 0);
+                    ctx.fill();
+                } else {
+                    ctx.fillStyle = '#facc15';
+                    ctx.beginPath();
+                    for (let i = 0; i < 5; i++) {
+                        ctx.lineTo(Math.cos((18 + i * 72) * Math.PI / 180) * this.size / 2,
+                                   -Math.sin((18 + i * 72) * Math.PI / 180) * this.size / 2);
+                        ctx.lineTo(Math.cos((54 + i * 72) * Math.PI / 180) * this.size / 4,
+                                   -Math.sin((54 + i * 72) * Math.PI / 180) * this.size / 4);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+        const particles = Array.from({ length: 45 }, () => new HeartParticle());
+        function animatePinkBg() {
+            if (currentPage === 'tab1') {
+                ctx.clearRect(0, 0, width, height);
+                particles.forEach(p => { p.update(); p.draw(); });
+            }
+            requestAnimationFrame(animatePinkBg);
+        }
+        animatePinkBg();
+
+        /* --- BACKGROUND 2: NIGHT SKY & SHOOTING STARS CANVAS --- */
+        const starsCanvas = document.getElementById('stars-canvas');
+        const sCtx = starsCanvas.getContext('2d');
+        starsCanvas.width = window.innerWidth;
+        starsCanvas.height = window.innerHeight;
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * starsCanvas.width;
+                this.y = Math.random() * starsCanvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.alpha = Math.random();
+                this.speed = Math.random() * 0.02 + 0.005;
+            }
+            draw() {
+                this.alpha += this.speed;
+                if (this.alpha > 1 || this.alpha < 0) this.speed = -this.speed;
+                sCtx.fillStyle = `rgba(255, 255, 255, ${Math.abs(this.alpha)})`;
+                sCtx.beginPath();
+                sCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                sCtx.fill();
+            }
+        }
+
+        class ShootingStar {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * starsCanvas.width;
+                this.y = Math.random() * (starsCanvas.height / 2);
+                this.len = Math.random() * 80 + 40;
+                this.speed = Math.random() * 10 + 6;
+                this.size = Math.random() * 1 + 0.1;
+                this.waitTime = new Date().getTime() + Math.random() * 3000 + 1000;
+                this.active = false;
+            }
+            update() {
+                if (new Date().getTime() > this.waitTime) this.active = true;
+                if (this.active) {
+                    this.x -= this.speed;
+                    this.y += this.speed;
+                    if (this.x < 0 || this.y > starsCanvas.height) this.reset();
+                }
+            }
+            draw() {
+                if (this.active) {
+                    sCtx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                    sCtx.lineWidth = this.size;
+                    sCtx.beginPath();
+                    sCtx.moveTo(this.x, this.y);
+                    sCtx.lineTo(this.x + this.len, this.y - this.len);
+                    sCtx.stroke();
+                }
+            }
+        }
+
+        const starsArr = Array.from({ length: 120 }, () => new Star());
+        const shootingStarsArr = Array.from({ length: 4 }, () => new ShootingStar());
+
+        function animateNightBg() {
+            if (currentPage === 'tab2') {
+                sCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+                starsArr.forEach(s => s.draw());
+                shootingStarsArr.forEach(ss => { ss.update(); ss.draw(); });
+            }
+            requestAnimationFrame(animateNightBg);
+        }
+        animateNightBg();
+
+        function triggerStarShower() {
+            confetti({
+                particleCount: 80,
+                spread: 100,
+                origin: { y: 0.4 },
+                colors: ['#48cae4', '#90e0ef', '#ffffff', '#facc15']
+            });
+        }
+
+        /* --- LOGIN SYSTEM --- */
+        function insertHeart(inputId) {
+            const input = document.getElementById(inputId);
+            input.value += '❤️';
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('loginError');
+
+            const isUserValid = user.includes('❤️') || user.includes('♥') || user.toLowerCase().includes('kalp') || user.length > 0;
+            const isPassValid = pass.includes('❤️') || pass.includes('♥') || pass.toLowerCase().includes('kalp') || pass.length > 0;
+
+            if (isUserValid && isPassValid) {
+                errorMsg.classList.add('hidden');
+                document.getElementById('loginModal').classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(() => {
+                    document.getElementById('loginModal').style.display = 'none';
+                    document.getElementById('mainContent').classList.remove('hidden');
+                    triggerConfetti();
+                    startAllTimers();
+                    drawWheel();
+                }, 500);
+            } else {
+                errorMsg.classList.remove('hidden');
+                const form = document.getElementById('loginForm');
+                form.classList.add('animate-bounce');
+                setTimeout(() => form.classList.remove('animate-bounce'), 1000);
+            }
+        }
+
+        /* --- AUTOMATIC LOVE LETTER GENERATOR LOGIC --- */
+        const letterTemplates = [
+            "Trakya'nin aksam rüzgari eserken aklima gelen tek sey senin Eskisehir'deki o muazzam gülüsün sevgilim. Aramizda yüzlerce kilometre olabilir ama kalbim her saniye senin yaninda atiyor. Iyi ki 14 Mart'ta hayatima girdin, iyi ki benim oldun!",
+            "Ecrin'im, güzel gözlü prensesim... Seni ne kadar sevdigimi kelimeler anlatmaya yetmez. Eskisehir sokaklarinda yürüdügünü hayal ettigim her an içimi sicacik bir huzur kapliyor. Mesafeler sadece haritadaki çizgilerden ibaret, askimiz hepsinden daha büyük!",
+            "Güne senin mesajinla baslamak, gece sesini duyup uyumak bu hayattaki en büyük lüksüm sevgilim. Trakya'dan sana kucak dolusu öpücükler ve sarilmalar yolluyorum. Bir gün tamamen kavusacagiz ve bir daha hiç ayrilmayacagiz...",
+            "Sen benim en güzel dualarimin karsiligisin Ecrin. Her gün seni düsündükçe askim katlanarak büyüyor. Kirginliklarimiz da olsa, kötü günler de geçse bizim sevgimiz her seyin üstesinden gelecek kadar güçlü. Seni sonsuza kadar sevecegim!",
+            "Bitanem, seninle geçen her an ömrümün en degerli hediyesi. Eskisehir ile Trakya arasindaki tüm yollar askimizin sahidi olsun. Kalbimin tek sahibi sensin sevgilim, iyi ki varsin!"
+        ];
+
+        function generateNewLetter() {
+            const letterEl = document.getElementById('generatedLetter');
+            const dateEl = document.getElementById('letterDate');
+            
+            letterEl.classList.add('opacity-0');
+            setTimeout(() => {
+                const randomIdx = Math.floor(Math.random() * letterTemplates.length);
+                letterEl.innerText = `"${letterTemplates[randomIdx]}"`;
+                const now = new Date();
+                dateEl.innerText = `${now.getDate()} ${now.toLocaleString('tr-TR', { month: 'long' })} ${now.getFullYear()}`;
+                letterEl.classList.remove('opacity-0');
+            }, 300);
+
+            triggerConfetti();
+        }
+
+        function forgiveEmre() {
+            triggerConfetti();
+            alert("Ecrin, Emre'yi affetti! ❤️ Sarılma ve sevgi enerjisi Trakya'ya ulaştı. Emre seni çok ama çok seviyor!");
+        }
+
+        /* --- SONG PLAYER (REFLECTIONS) --- */
+        let isSongPlaying = false;
+        function toggleSong() {
+            const audio = document.getElementById('reflectionsAudio');
+            const icon = document.getElementById('songPlayIcon');
+            const status = document.getElementById('songStatus');
+
+            if (isSongPlaying) {
+                audio.pause();
+                isSongPlaying = false;
+                icon.className = 'fas fa-play';
+                status.innerText = 'Şarkı duraklatıldı.';
+            } else {
+                audio.play().catch(() => {});
+                isSongPlaying = true;
+                icon.className = 'fas fa-pause';
+                status.innerText = 'Çalıyor: Reflections - The Neighbourhood ❤️';
+            }
+        }
+
+        /* --- ALL TIMERS --- */
+        function startAllTimers() {
+            const startDate = new Date('2024-03-14T00:00:00');
+
+            setInterval(() => {
+                const now = new Date();
+                const diff = now - startDate;
+
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+                    const seconds = Math.floor((diff / 1000) % 60);
+
+                    document.getElementById('mainDays').innerText = days;
+                    document.getElementById('mainHours').innerText = hours < 10 ? '0' + hours : hours;
+                    document.getElementById('mainMinutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                    document.getElementById('mainSeconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+                }
+            }, 1000);
+
+            updateBirthdayCountdowns();
+            setInterval(updateBirthdayCountdowns, 60000);
+        }
+
+        function updateBirthdayCountdowns() {
+            const now = new Date();
+
+            // Ecrin: 15 Jan 2012
+            const ecrinAge = calculateAge(new Date('2012-01-15'), now);
+            document.getElementById('ecrinAge').innerText = `${ecrinAge} Yaşında`;
+            document.getElementById('ecrinBdayCountdown').innerText = getNextBirthdayString(0, 15);
+
+            // Emre: 21 Nov 2007
+            const emreAge = calculateAge(new Date('2007-11-21'), now);
+            document.getElementById('emreAge').innerText = `${emreAge} Yaşında`;
+            document.getElementById('emreBdayCountdown').innerText = getNextBirthdayString(10, 21);
+        }
+
+        function calculateAge(birthDate, currentDate) {
+            let age = currentDate.getFullYear() - birthDate.getFullYear();
+            const m = currentDate.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && currentDate.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        function getNextBirthdayString(targetMonth, targetDay) {
+            const now = new Date();
+            let nextBday = new Date(now.getFullYear(), targetMonth, targetDay);
+
+            if (now > nextBday) {
+                nextBday.setFullYear(now.getFullYear() + 1);
+            }
+
+            const diffTime = Math.abs(nextBday - now);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0 || (now.getMonth() === targetMonth && now.getDate() === targetDay)) {
+                return "🎉 BUGÜN DOĞUM GÜNÜ! 🎉";
+            }
+            return `${diffDays} Gün Kaldı 🎈`;
+        }
+
+        /* --- CONFETTI --- */
+        function triggerConfetti() {
+            confetti({
+                particleCount: 70,
+                spread: 60,
+                origin: { y: 0.6 },
+                colors: ['#f06595', '#e64980', '#ffe3e8', '#facc15']
+            });
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        /* --- GAME 1: CATCH HEARTS --- */
+        let score = 0;
+        let gameInterval;
+        let isGameRunning = false;
+
+        function startGame() {
+            if (isGameRunning) return;
+            score = 0;
+            document.getElementById('gameScore').innerText = score;
+            document.getElementById('startGameBtn').classList.add('hidden');
+            isGameRunning = true;
+
+            gameInterval = setInterval(spawnHeart, 750);
+            setTimeout(stopGame, 12000);
+        }
+
+        function spawnHeart() {
+            const gameArea = document.getElementById('gameArea');
+            if(!isGameRunning) return;
+
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'absolute text-2xl cursor-pointer select-none transition hover:scale-125';
+            
+            const x = Math.random() * (gameArea.clientWidth - 40);
+            const y = Math.random() * (gameArea.clientHeight - 40);
+            
+            heart.style.left = `${x}px`;
+            heart.style.top = `${y}px`;
+
+            heart.onclick = () => {
+                score += 1;
+                document.getElementById('gameScore').innerText = score;
+                heart.remove();
+            };
+
+            gameArea.appendChild(heart);
+
+            setTimeout(() => {
+                if(heart.parentNode) heart.remove();
+            }, 1100);
+        }
+
+        function stopGame() {
+            isGameRunning = false;
+            clearInterval(gameInterval);
+            document.getElementById('startGameBtn').classList.remove('hidden');
+            document.getElementById('startGameBtn').innerText = 'Tekrar Oyna';
+            triggerConfetti();
+            alert(`Tebrikler Ecrin! Eskişehir'e Düşen ${score} kalbi topladın! Emre seni sonsuz kere çok seviyor! ❤️`);
+        }
+
+        /* --- GAME 2: WHEEL OF FORTUNE --- */
+        const prizes = [
+            "MLBB Beraber Oyunu 🎮",
+            "Birlikte Dizi İzleme 🍿",
+            "Sabahlayalım Söyleşisi 🌙",
+            "Derin Konuşmalar Kuponu 💬",
+            "Seni Ne Kadar Sevdiğimi Anlatma 💌",
+            "İstediğin 1 Dilek 🪄"
+        ];
+        const colors = ['#fcc2d0', '#f797ad', '#f06595', '#e64980', '#ffe3e8', '#fcc2d0'];
+        let isSpinning = false;
+
+        function drawWheel() {
+            const wCanvas = document.getElementById('wheelCanvas');
+            const wCtx = wCanvas.getContext('2d');
+            const numPrizes = prizes.length;
+            const arc = (Math.PI * 2) / numPrizes;
+
+            wCtx.clearRect(0, 0, 220, 220);
+
+            for (let i = 0; i < numPrizes; i++) {
+                const angle = i * arc;
+                wCtx.fillStyle = colors[i];
+                wCtx.beginPath();
+                wCtx.arc(110, 110, 105, angle, angle + arc);
+                wCtx.lineTo(110, 110);
+                wCtx.fill();
+
+                wCtx.save();
+                wCtx.translate(110, 110);
+                wCtx.rotate(angle + arc / 2);
+                wCtx.textAlign = "right";
+                wCtx.fillStyle = "#881337";
+                wCtx.font = "bold 8px Poppins";
+                wCtx.fillText(prizes[i], 98, 3);
+                wCtx.restore();
+            }
+        }
+
+        function spinWheel() {
+            if (isSpinning) return;
+            isSpinning = true;
+
+            const wCanvas = document.getElementById('wheelCanvas');
+            const prizeIndex = Math.floor(Math.random() * prizes.length);
+            const degreePerSlice = 360 / prizes.length;
+            
+            const randomRounds = 5;
+            const targetDegree = (randomRounds * 360) + (360 - (prizeIndex * degreePerSlice) - (degreePerSlice / 2));
+
+            wCanvas.style.transform = `rotate(${targetDegree}deg)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                document.getElementById('wheelPrizeText').innerText = prizes[prizeIndex];
+                document.getElementById('wheelModal').classList.remove('hidden');
+                triggerConfetti();
+            }, 4000);
+        }
+
+        /* --- MUSIC SYNTHESIZER --- */
+        let isMusicPlaying = false;
+        let audioCtx;
+
+        function toggleMusic() {
+            const icon = document.getElementById('musicIcon');
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (isMusicPlaying) {
+                isMusicPlaying = false;
+                icon.className = 'fas fa-music text-xl';
+            } else {
+                isMusicPlaying = true;
+                icon.className = 'fas fa-pause text-xl text-love-600';
+                playMelody();
+            }
+        }
+
+        function playMelody() {
+            if (!isMusicPlaying) return;
+
+            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 349.23, 329.63, 293.66];
+            let noteIdx = 0;
+
+            function playNote() {
+                if (!isMusicPlaying) return;
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(notes[noteIdx], audioCtx.currentTime);
+
+                gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+
+                noteIdx = (noteIdx + 1) % notes.length;
+                setTimeout(playNote, 650);
+            }
+
+            playNote();
+        }
+    </script>
+</body>
+</html>
